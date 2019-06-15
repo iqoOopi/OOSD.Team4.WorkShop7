@@ -44,7 +44,7 @@ public class AgentsRESTService {
 	 ********************************************************************************************
 	 * Course: PROJ 217 Threaded Project
 	 * Purpose: Workshop 7
-	 * Date: June 14, 2019.
+	 * Date: June 13, 2019.
 	 * Author: Tim Leslie
 	 * Description: This is a GET method which is part of a REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
