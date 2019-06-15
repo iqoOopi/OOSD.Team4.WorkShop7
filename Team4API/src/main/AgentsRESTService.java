@@ -49,7 +49,6 @@ public class AgentsRESTService {
 	 * Description: This is a GET method which is part of a REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
 	 * populate an agent object.
-	 *
 	 *******************************************************************************************/
 	
 	@GET
