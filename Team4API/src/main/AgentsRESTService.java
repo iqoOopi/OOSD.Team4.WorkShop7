@@ -71,6 +71,7 @@ public class AgentsRESTService {
 	{
 		Gson gson = new Gson();
 		Type type = new TypeToken<Agent>() {}.getType();
+
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
@@ -89,6 +90,7 @@ public class AgentsRESTService {
 	{
 		Gson gson = new Gson();
 		Type type = new TypeToken<Agent>() {}.getType();
+		String temp = jsonString;
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
