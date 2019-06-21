@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
@@ -17,6 +18,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import model.Agent;
@@ -44,8 +47,8 @@ public class AgentsRESTService {
 	 ********************************************************************************************
 	 * Course: PROJ 217 Threaded Project
 	 * Purpose: Workshop 7
-	 * Date: June 13, 2019.
-	 * Author: Tim Leslie
+	 * Date: June 12, 2019.
+	 * Author: Timothy Leslie
 	 * Description: This is a GET method which is part of a REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
 	 * populate an agent object.
@@ -58,6 +61,7 @@ public class AgentsRESTService {
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getagent/5
 		EntityManager em =
+//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 
 		Agent agent = em.find(Agent.class, agentId);
@@ -79,17 +83,53 @@ public class AgentsRESTService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postAgent(String jsonString)
 	{
+		System.out.println(jsonString);
 		Gson gson = new Gson();
 		Type type = new TypeToken<Agent>() {}.getType();
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
+//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
+		//Agent agent = em.find(Agent.class, jsonString["agentId"]);
 		em.getTransaction().begin();
 		em.merge(agent);
 		em.getTransaction().commit();
 		return "Agent update completed";
 	}
+	
+//	@POST
+//	@Path("/postagent")
+//	@Consumes({MediaType.APPLICATION_JSON})
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String postAgent(String jsonString)
+//	{
+//		System.out.println("starting postagent");
+//		System.out.println(jsonString);
+//		JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
+//		System.out.println(json);
+//		EntityManagerFactory factory =
+//				Persistence.createEntityManagerFactory("Team4API");
+//		EntityManager em = factory.createEntityManager();
+//		
+//		//Agent agent = em.find(Agent.class, json.get("agentId").getAsInt());
+//		
+//		Agent agent = new Agent();
+//		agent.setAgentId(json.get("agentId").getAsInt());
+//		agent.setAgtFirstName(json.get("agtFirstName").getAsString());
+//		agent.setAgtMiddleInitial(json.get("agtMiddleInitial").getAsString());
+//		agent.setAgtLastName(json.get("agtLastName").getAsString());
+//		agent.setAgtBusPhone(json.get("agtBusPhone").getAsString());
+//		agent.setAgtEmail(json.get("agtEmail").getAsString());
+//		agent.setAgtPosition(json.get("agtPosition").getAsString());
+//		agent.setAgencyId(json.get("agencyId").getAsInt());
+//		em.getTransaction().begin();
+//		em.merge(agent);
+//		em.getTransaction().commit();
+//		em.close();
+//		factory.close();
+//		return "Agent Updated";
+//	}
 	
 	@PUT
 	@Path("/putagent")
@@ -101,6 +141,7 @@ public class AgentsRESTService {
 		Type type = new TypeToken<Agent>() {}.getType();
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
+//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		em.getTransaction().begin();

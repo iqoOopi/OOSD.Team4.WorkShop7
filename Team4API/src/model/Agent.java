@@ -16,20 +16,20 @@ public class Agent implements Serializable {
 
 	@Id
 	private int agentId;
+	
+	private String agtFirstName;
 
-	private int agencyId;
-
+	private String agtMiddleInitial;
+	
+	private String agtLastName;
+		
 	private String agtBusPhone;
 
 	private String agtEmail;
 
-	private String agtFirstName;
-
-	private String agtLastName;
-
-	private String agtMiddleInitial;
-
 	private String agtPosition;
+	
+	private int agencyId;
 
 	public Agent() {
 	}
