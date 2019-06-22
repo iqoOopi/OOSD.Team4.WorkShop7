@@ -3,6 +3,7 @@
 	<persistence-unit name="Team4API" transaction-type="RESOURCE_LOCAL">
 		<class>model.Agent</class>
 		<class>model.Customer</class>
+		<class>model.Package</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/travelexperts"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
