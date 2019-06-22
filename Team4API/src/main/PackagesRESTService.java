@@ -4,9 +4,9 @@
 	 * Purpose: Workshop 7
 	 * Date: June 21, 2019.
 	 * Author: Timothy Leslie
-	 * Description: This is a GET method which is part of a REST service to access database 
+	 * Description: This is a Packages REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
-	 * populate an agent object.
+	 * populate an pkg object.
 	 ********************************************************************************************
 	 */
 package main;

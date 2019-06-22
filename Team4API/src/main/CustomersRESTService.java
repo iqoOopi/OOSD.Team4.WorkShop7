@@ -4,11 +4,11 @@
 	 * Purpose: Workshop 7
 	 * Date: June 12, 2019.
 	 * Author: Timothy Leslie
-	 * Description: This is a GET method which is part of a REST service to access database 
+	 * Description: This is a Customers REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
-	 * populate an agent object.
-	 ******************************************************************************************
-	 **/
+	 * populate an customer object.
+	 ********************************************************************************************
+	 */
 package main;
 
 import java.lang.reflect.Type;
@@ -96,40 +96,7 @@ public class CustomersRESTService {
 		em.getTransaction().commit();
 		return "Customer update completed";
 	}
-	
-//	@POST
-//	@Path("/postagent")
-//	@Consumes({MediaType.APPLICATION_JSON})
-//	@Produces(MediaType.TEXT_PLAIN)
-//	public String postAgent(String jsonString)
-//	{
-//		System.out.println("starting postagent");
-//		System.out.println(jsonString);
-//		JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
-//		System.out.println(json);
-//		EntityManagerFactory factory =
-//				Persistence.createEntityManagerFactory("Team4API");
-//		EntityManager em = factory.createEntityManager();
-//		
-//		//Agent agent = em.find(Agent.class, json.get("agentId").getAsInt());
-//		
-//		Agent agent = new Agent();
-//		agent.setAgentId(json.get("agentId").getAsInt());
-//		agent.setAgtFirstName(json.get("agtFirstName").getAsString());
-//		agent.setAgtMiddleInitial(json.get("agtMiddleInitial").getAsString());
-//		agent.setAgtLastName(json.get("agtLastName").getAsString());
-//		agent.setAgtBusPhone(json.get("agtBusPhone").getAsString());
-//		agent.setAgtEmail(json.get("agtEmail").getAsString());
-//		agent.setAgtPosition(json.get("agtPosition").getAsString());
-//		agent.setAgencyId(json.get("agencyId").getAsInt());
-//		em.getTransaction().begin();
-//		em.merge(agent);
-//		em.getTransaction().commit();
-//		em.close();
-//		factory.close();
-//		return "Agent Updated";
-//	}
-	
+		
 	@PUT
 	@Path("/putcustomer")
 	@Consumes({MediaType.APPLICATION_JSON})
