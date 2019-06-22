@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+n<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -19,14 +19,19 @@ function loadagents()
 	var req = new XMLHttpRequest();
 	var tempAgent;
 	
-	// AJAX call to get province/state information from REST service
+	// AJAX call to get agent information from REST service
 	req.open("get", url);
+	req.setRequestHeader("Content-type", "application/json");
+//	req.setRequestHeader("Content-type", "application/json");
+//	req.setRequestHeader("Accept", "application/xml");
+	req.setRequestHeader("Accept", "application/json");
+
 	req.onreadystatechange = function()
 	{
 		var txt;
 		if (req.readyState == 4)
 		{
-			// parse returned province/state information into JSON array
+			// parse returned agent information into JSON array
 		    json = JSON.parse(this.responseText);
 			
 			console.log(json.length);
@@ -67,6 +72,7 @@ function saveagent()
 	// AJAX call to put agent information to the REST service
 	req.open("put", url);
 	req.setRequestHeader("Content-type", "application/json");
+	req.setRequestHeader("Accept", "application/json")
 	req.onreadystatechange = function()
 	{
 		if (this.readyState == 4 && this.status == 200) {

@@ -26,6 +26,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -39,25 +40,26 @@ public class AgentsRESTService {
 
 	@GET
 	@Path("/getallagents")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllAgents()
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<Agent> getAllAgents()
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getallagents
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select a from Agent a");
 		List<Agent> agents = query.getResultList();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<Agent>>() {}.getType();
-		String jsonString = gson.toJson(agents, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<List<Agent>>() {}.getType();
+		//String jsonString = gson.toJson(agents, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return agents;
 	}
 	
 	@GET
 	@Path("/getagent/{ agentid }")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAgent(@PathParam("agentid") int agentId)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Agent getAgent(@PathParam("agentid") int agentId)
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getagent/5
 		EntityManager em =
@@ -69,17 +71,17 @@ public class AgentsRESTService {
 		//Query query = em.createQuery("select a from Agent a where a.agentId=" + agentId);
 		//Agent agent = (Agent) query.getSingleResult();
 
-		Gson gson = new Gson();
-		Type type = new TypeToken<Agent>() {}.getType();
-		String jsonString = gson.toJson(agent, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<Agent>() {}.getType();
+		//String jsonString = gson.toJson(agent, type);
 		em.close();
-		return jsonString;
-
+		//return jsonString;
+		return agent;
 	}
 	
 	@POST
 	@Path("/postagent")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postAgent(String jsonString)
 	{
@@ -134,7 +136,7 @@ public class AgentsRESTService {
 	
 	@PUT
 	@Path("/putagent")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAgent(String jsonString)
 	{

@@ -37,19 +37,21 @@ public class ProductsRESTService {
 
 	@GET
 	@Path("/getallproducts")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllProducts()
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//	public String getAllProducts()
+	public List<Product> getAllProducts()
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getallproducts
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select p from Product p");
 		List<Product> products = query.getResultList();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<Product>>() {}.getType();
-		String jsonString = gson.toJson(products, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<List<Product>>() {}.getType();
+		//String jsonString = gson.toJson(products, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return products;
 	}
 	
 	@GET
