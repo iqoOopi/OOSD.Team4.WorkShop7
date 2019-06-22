@@ -4,6 +4,9 @@
 		<class>model.Agent</class>
 		<class>model.Customer</class>
 		<class>model.Package</class>
+		<class>model.Booking</class>
+		<class>model.Product</class>
+		<class>model.Supplier</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/travelexperts"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

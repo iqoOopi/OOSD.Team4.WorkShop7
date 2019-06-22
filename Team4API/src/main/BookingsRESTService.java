@@ -2,13 +2,12 @@
 	 ********************************************************************************************
 	 * Course: PROJ 217 Threaded Project
 	 * Purpose: Workshop 7
-	 * Date: June 12, 2019.
+	 * Date: June 22, 2019.
 	 * Author: Timothy Leslie
-	 * Description: This is a Customers REST service to access database 
+	 * Description: This is an Bookings REST service to access database 
 	 * information. This service will be called with AJAX from the client-side and used to
-	 * populate an customer object.
-	 ********************************************************************************************
-	 */
+	 * populate an booking object.
+	 *******************************************************************************************/
 package main;
 
 import java.lang.reflect.Type;
@@ -30,106 +29,105 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import model.Customer;
+import model.Booking;
 
-@Path("/customers")
-public class CustomersRESTService {
+@Path("/bookings")
+public class BookingsRESTService {
 
 	@GET
-	@Path("/getallcustomers")
+	@Path("/getallbookings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllCustomers()
+	public String getAllBookings()
 	{
-		//	http://localhost:8080/Team4API/rest/customers/getallcustomers
+		//	http://localhost:8080/Team4API/rest/bookings/getallbookings
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
-		Query query = em.createQuery("select c from Customer c");
-		List<Customer> agents = query.getResultList();
+		Query query = em.createQuery("select b from Booking b");
+		List<Booking> bookings = query.getResultList();
 		Gson gson = new Gson();
-		Type type = new TypeToken<List<Customer>>() {}.getType();
-		String jsonString = gson.toJson(agents, type);
+		Type type = new TypeToken<List<Booking>>() {}.getType();
+		String jsonString = gson.toJson(bookings, type);
 		em.close();
 		return jsonString;
 	}
 	
 	@GET
-	@Path("/getcustomer/{ customerid }")
+	@Path("/getbooking/{ bookingid }")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCustomer(@PathParam("customerid") int customerId)
+	public String getBooking(@PathParam("bookingid") int bookingId)
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getagent/5
 		EntityManager em =
 //				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 
-		Customer customer = em.find(Customer.class, customerId);
+		Booking booking = em.find(Booking.class, bookingId);
 		
 		//Query query = em.createQuery("select a from Agent a where a.agentId=" + agentId);
 		//Agent agent = (Agent) query.getSingleResult();
 
 		Gson gson = new Gson();
-		Type type = new TypeToken<Customer>() {}.getType();
-		String jsonString = gson.toJson(customer, type);
+		Type type = new TypeToken<Booking>() {}.getType();
+		String jsonString = gson.toJson(booking, type);
 		em.close();
 		return jsonString;
 
 	}
 	
 	@POST
-	@Path("/postcustomer")
+	@Path("/postbooking")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces(MediaType.TEXT_PLAIN)
-	public String postAgent(String jsonString)
+	public String postBooking(String jsonString)
 	{
 		System.out.println(jsonString);
 		Gson gson = new Gson();
-		Type type = new TypeToken<Customer>() {}.getType();
+		Type type = new TypeToken<Booking>() {}.getType();
 
-		Customer customer = gson.fromJson(jsonString, type);
+		Booking booking = gson.fromJson(jsonString, type);
 		EntityManager em =
 //				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
-		//Agent agent = em.find(Agent.class, jsonString["agentId"]);
 		em.getTransaction().begin();
-		em.merge(customer);
+		em.merge(booking);
 		em.getTransaction().commit();
-		return "Customer update completed";
+		return "Booking update completed";
 	}
-		
+
 	@PUT
-	@Path("/putcustomer")
+	@Path("/putbooking")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces(MediaType.TEXT_PLAIN)
-	public String putAgent(String jsonString)
+	public String putBooking(String jsonString)
 	{
 		Gson gson = new Gson();
-		Type type = new TypeToken<Customer>() {}.getType();
+		Type type = new TypeToken<Booking>() {}.getType();
 		String temp = jsonString;
-		Customer customer = gson.fromJson(jsonString, type);
+		Booking booking = gson.fromJson(jsonString, type);
 		EntityManager em =
 //				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		em.getTransaction().begin();
-		em.persist(customer);
+		em.persist(booking);
 		em.getTransaction().commit();
-		return "Customer insert completed";
+		return "Booking insert completed";
 	}
 	
 	@DELETE
-	@Path("/deletecustomer/{ customerid }")
+	@Path("/deletebooking/{ bookingid }")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteAgent(@PathParam("customerid") int customerId)
+	public String deleteBooking(@PathParam("bookingid") int bookingId)
 	{
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
-		Customer customer = em.find(Customer.class, customerId);
+		Booking booking = em.find(Booking.class, bookingId);
 		em.getTransaction().begin();
-		em.remove(customer);
+		em.remove(booking);
 		em.getTransaction().commit();
-		return "Customer deleted";
+		return "Booking deleted";
 	}
 
 }

@@ -1,3 +1,13 @@
+	/*
+	 ********************************************************************************************
+	 * Course: PROJ 217 Threaded Project
+	 * Purpose: Workshop 7
+	 * Date: June 12, 2019.
+	 * Author: Timothy Leslie
+	 * Description: This is an Agents REST service to access database 
+	 * information. This service will be called with AJAX from the client-side and used to
+	 * populate an agent object.
+	 *******************************************************************************************/
 package main;
 
 import java.lang.reflect.Type;
@@ -43,16 +53,6 @@ public class AgentsRESTService {
 		em.close();
 		return jsonString;
 	}
-	/*
-	 ********************************************************************************************
-	 * Course: PROJ 217 Threaded Project
-	 * Purpose: Workshop 7
-	 * Date: June 12, 2019.
-	 * Author: Timothy Leslie
-	 * Description: This is a GET method which is part of a REST service to access database 
-	 * information. This service will be called with AJAX from the client-side and used to
-	 * populate an agent object.
-	 *******************************************************************************************/
 	
 	@GET
 	@Path("/getagent/{ agentid }")
