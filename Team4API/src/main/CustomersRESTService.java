@@ -37,47 +37,45 @@ public class CustomersRESTService {
 
 	@GET
 	@Path("/getallcustomers")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllCustomers()
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<Customer> getAllCustomers()
 	{
 		//	http://localhost:8080/Team4API/rest/customers/getallcustomers
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select c from Customer c");
-		List<Customer> agents = query.getResultList();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<Customer>>() {}.getType();
-		String jsonString = gson.toJson(agents, type);
+		List<Customer> customers = query.getResultList();
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<List<Customer>>() {}.getType();
+		//String jsonString = gson.toJson(agents, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return customers;
 	}
 	
 	@GET
 	@Path("/getcustomer/{ customerid }")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public String getCustomer(@PathParam("customerid") int customerId)
 	{
-		//	http://localhost:8080/Team4API/rest/agents/getagent/5
+		//	http://localhost:8080/Team4API/rest/customers/getcustomer/5
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 
 		Customer customer = em.find(Customer.class, customerId);
 		
-		//Query query = em.createQuery("select a from Agent a where a.agentId=" + agentId);
-		//Agent agent = (Agent) query.getSingleResult();
-
-		Gson gson = new Gson();
-		Type type = new TypeToken<Customer>() {}.getType();
-		String jsonString = gson.toJson(customer, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<Customer>() {}.getType();
+		//String jsonString = gson.toJson(customer, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return customer;
 
 	}
 	
 	@POST
 	@Path("/postcustomer")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postAgent(String jsonString)
 	{
@@ -87,7 +85,6 @@ public class CustomersRESTService {
 
 		Customer customer = gson.fromJson(jsonString, type);
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		//Agent agent = em.find(Agent.class, jsonString["agentId"]);
@@ -99,7 +96,7 @@ public class CustomersRESTService {
 		
 	@PUT
 	@Path("/putcustomer")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAgent(String jsonString)
 	{

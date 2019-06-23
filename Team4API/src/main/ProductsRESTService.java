@@ -41,7 +41,7 @@ public class ProductsRESTService {
 //	public String getAllProducts()
 	public List<Product> getAllProducts()
 	{
-		//	http://localhost:8080/Team4API/rest/agents/getallproducts
+		//	http://localhost:8080/Team4API/rest/products/getallproducts
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select p from Product p");
@@ -56,7 +56,7 @@ public class ProductsRESTService {
 	
 	@GET
 	@Path("/getproduct/{ productid }")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public String getProduct(@PathParam("productid") int productId)
 	{
 		//	http://localhost:8080/Team4API/rest/products/getproduct/5
@@ -75,7 +75,7 @@ public class ProductsRESTService {
 	
 	@POST
 	@Path("/postproduct")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postProduct(String jsonString)
 	{
@@ -96,7 +96,7 @@ public class ProductsRESTService {
 	
 	@PUT
 	@Path("/putproduct")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putProduct(String jsonString)
 	{

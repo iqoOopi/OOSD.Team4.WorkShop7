@@ -37,25 +37,26 @@ public class PackagesRESTService {
 
 	@GET
 	@Path("/getallpackages")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllPackages()
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<Package> getAllPackages()
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getallagents
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select p from Package p");
 		List<Package> packages = query.getResultList();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<Package>>() {}.getType();
-		String jsonString = gson.toJson(packages, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<List<Package>>() {}.getType();
+		//String jsonString = gson.toJson(packages, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return packages;
 	}
 	
 	@GET
 	@Path("/getpackage/{ packageid }")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getPackage(@PathParam("packageid") int packageId)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Package getPackage(@PathParam("packageid") int packageId)
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getagent/5
 		EntityManager em =
@@ -67,17 +68,18 @@ public class PackagesRESTService {
 		//Query query = em.createQuery("select a from Agent a where a.agentId=" + agentId);
 		//Agent agent = (Agent) query.getSingleResult();
 
-		Gson gson = new Gson();
-		Type type = new TypeToken<Package>() {}.getType();
-		String jsonString = gson.toJson(pkg, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<Package>() {}.getType();
+		//String jsonString = gson.toJson(pkg, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return pkg;
 
 	}
 	
 	@POST
 	@Path("/postpackage")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postPackage(String jsonString)
 	{
@@ -100,7 +102,7 @@ public class PackagesRESTService {
 	
 	@PUT
 	@Path("/putpackage")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putPackage(String jsonString)
 	{

@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name="packages")
 @NamedQuery(name="Package.findAll", query="SELECT p FROM Package p")
+@XmlRootElement
 public class Package implements Serializable {
 	private static final long serialVersionUID = 1L;
 
