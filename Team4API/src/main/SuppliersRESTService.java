@@ -38,25 +38,26 @@ public class SuppliersRESTService {
 
 	@GET
 	@Path("/getallsuppliers")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllSuppliers()
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public List<Supplier> getAllSuppliers()
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getallproducts
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		Query query = em.createQuery("select s from Supplier s");
 		List<Supplier> suppliers = query.getResultList();
-		Gson gson = new Gson();
-		Type type = new TypeToken<List<Supplier>>() {}.getType();
-		String jsonString = gson.toJson(suppliers, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<List<Supplier>>() {}.getType();
+		//String jsonString = gson.toJson(suppliers, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return suppliers;
 	}
 	
 	@GET
 	@Path("/getsupplier/{ supplierid }")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getSupplier(@PathParam("supplierid") int supplierId)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Supplier getSupplier(@PathParam("supplierid") int supplierId)
 	{
 		//	http://localhost:8080/Team4API/rest/products/getproduct/5
 		EntityManager em =
@@ -64,17 +65,18 @@ public class SuppliersRESTService {
 
 		Supplier supplier = em.find(Supplier.class, supplierId);
 		
-		Gson gson = new Gson();
-		Type type = new TypeToken<Supplier>() {}.getType();
-		String jsonString = gson.toJson(supplier, type);
+		//Gson gson = new Gson();
+		//Type type = new TypeToken<Supplier>() {}.getType();
+		//String jsonString = gson.toJson(supplier, type);
 		em.close();
-		return jsonString;
+		//return jsonString;
+		return supplier;
 
 	}
 	
 	@POST
 	@Path("/postsupplier")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String postSupplier(String jsonString)
 	{
@@ -95,7 +97,7 @@ public class SuppliersRESTService {
 	
 	@PUT
 	@Path("/putsupplier")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putSupplier(String jsonString)
 	{
