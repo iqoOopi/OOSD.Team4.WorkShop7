@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel= "stylesheet" href= "bootstrap/css/bootstrap.min.css">
+
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
 <title>Travel Experts</title>
@@ -33,7 +34,7 @@ function loadagents()
 			console.log(Object.keys(json[0]).length);
 			console.log(Object.keys(json[0]));			
 			
-		    txt += "<table id='agenttable' border='1'>"
+		    txt += "<table class='table table-striped table-dark' id='agenttable' border='1'>"
 		    var keys = Object.keys(json[0]);
 		    console.log(keys);
 		    console.log("json: ", json);
@@ -53,7 +54,7 @@ function loadagents()
 		}
 	};
 	req.send();
-	
+	 
 }
 
 function saveagent()
@@ -191,7 +192,7 @@ function displayagent()
 			console.log(Object.keys(json));
 			
 			
-		    txt += "<form><table>"
+		    txt += "<form><table class='table table-striped table-dark'>"
 		    var keys = Object.keys(json);
 		    console.log(keys);
 		    console.log("json: ", json);
