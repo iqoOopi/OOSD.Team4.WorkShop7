@@ -56,7 +56,7 @@ public class CustomersRESTService {
 	@GET
 	@Path("/getcustomer/{ customerid }")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public String getCustomer(@PathParam("customerid") int customerId)
+	public Customer getCustomer(@PathParam("customerid") int customerId)
 	{
 		//	http://localhost:8080/Team4API/rest/customers/getcustomer/5
 		EntityManager em =
