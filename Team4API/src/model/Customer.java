@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * The persistent class for the customers database table.
  * 
  */
+//
 @Entity
 @Table(name="customers")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
@@ -40,6 +41,10 @@ public class Customer implements Serializable {
 	private String custPostal;
 
 	private String custProv;
+
+	private String password;
+
+	private String userName;
 
 	public Customer() {
 	}
@@ -138,6 +143,22 @@ public class Customer implements Serializable {
 
 	public void setCustProv(String custProv) {
 		this.custProv = custProv;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }
