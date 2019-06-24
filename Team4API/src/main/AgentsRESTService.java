@@ -43,6 +43,7 @@ public class AgentsRESTService {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<Agent> getAllAgents()
 	{
+		System.out.println("Starting getallagents.");
 		//	http://localhost:8080/Team4API/rest/agents/getallagents
 		EntityManager em =
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
@@ -63,7 +64,6 @@ public class AgentsRESTService {
 	{
 		//	http://localhost:8080/Team4API/rest/agents/getagent/5
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 
 		Agent agent = em.find(Agent.class, agentId);
@@ -79,6 +79,66 @@ public class AgentsRESTService {
 		return agent;
 	}
 	
+	@GET
+	@Path("/getagentemail/{ email }")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public String getAgentE(@PathParam("email") String email)
+	{
+		System.out.println(email);
+		EntityManager em =
+				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
+		
+		System.out.println("Starting getagente");
+		Query query = em.createQuery("select a from Agent a where a.agtEmail='" + email + "'");
+		Agent agent = (Agent) query.getSingleResult();
+		em.close();
+		
+		System.out.println(agent.toString());
+				
+		Gson gson = new Gson();
+		Type type = new TypeToken<Agent>() {}.getType();
+		String jsonString = gson.toJson(agent, type);
+		//em.close();
+		
+		//return jsonString;		
+		return jsonString;
+		//return agent;
+	}
+
+
+//	@GET
+//	@Path("/getagente/{ email }")
+//	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//	public String getAgentE(@PathParam("email") String email)
+//	{
+//		System.out.println(email);
+//		EntityManager em =
+//				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
+//		
+//		System.out.println("Starting getagente");
+//		Query query = em.createQuery("select a from Agent a");
+//		List<Agent> agents = query.getResultList();
+//		em.close();
+//		Agent tempAgent = new Agent();
+//		for (Agent agt : agents)
+//		{ 
+//			if (agt.getAgtEmail().equals(email)) {
+//				System.out.println(agt.getAgtEmail() + " " + email);
+//				tempAgent = agt;
+//			}
+//		}
+//				
+//		Gson gson = new Gson();
+//		Type type = new TypeToken<Agent>() {}.getType();
+//		String jsonString = gson.toJson(tempAgent, type);
+//		//em.close();
+//		
+//		//return jsonString;		
+//		return jsonString;
+//		//return agent;
+//	}
+
+	
 	@POST
 	@Path("/postagent")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -91,7 +151,6 @@ public class AgentsRESTService {
 
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		//Agent agent = em.find(Agent.class, jsonString["agentId"]);
@@ -140,12 +199,11 @@ public class AgentsRESTService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAgent(String jsonString)
 	{
+		System.out.println(jsonString);
 		Gson gson = new Gson();
 		Type type = new TypeToken<Agent>() {}.getType();
-		String temp = jsonString;
 		Agent agent = gson.fromJson(jsonString, type);
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		em.getTransaction().begin();
