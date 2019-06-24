@@ -70,20 +70,29 @@
 				}, "json");
 		}
 	</script>
-
+	<link rel="stylesheet" href="./bootstrap/css/grayscale.css" type= "text/css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.7.0/css/all.css"  >
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 </head>
-<body>
-	<form>
-		FirstName:<input type="text" id="agtFirstName" /><br />
-		<button onclick="saveagent()">Save</button>
-	</form>
+<body style="background-image:url('./img/demo-image-01.jpg')">
+	<div class="mx-auto">
+		<h1 class= "heading mx-auto my-0 text-uppercase">Agent Details </h1>
+	</div>
+	<div class="container">
+		<form>
+		<div class="head2">
+			<a class="fname">FirstName:</a> 
+			<input type="text" id="agtFirstName" /><br />
+		</div>			
+			<button class="btn btn-primary btnsave" onclick="saveagent()">Save</button>
+		</form>	
+		<select id="agentid" onchange="showagent(this.value)">
+			<option value="">Select an agent to display</option>
+		</select>
+		<div id="agentdetail"></div>
+	</div>
 	
-		<h1>Agent Details 9</h1>
-	<select id="agentid" onchange="showagent(this.value)">
-		<option value="">Select an agent to display</option>
-	</select>
-	<div id="agentdetail"></div>
 	<script>
 		$(document).ready(function(){ loadagents(); });
 	</script>
