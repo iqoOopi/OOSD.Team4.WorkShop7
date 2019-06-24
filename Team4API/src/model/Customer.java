@@ -39,6 +39,10 @@ public class Customer implements Serializable {
 
 	private String custProv;
 
+	private String password;
+
+	private String userName;
+
 	public Customer() {
 	}
 
@@ -136,6 +140,22 @@ public class Customer implements Serializable {
 
 	public void setCustProv(String custProv) {
 		this.custProv = custProv;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

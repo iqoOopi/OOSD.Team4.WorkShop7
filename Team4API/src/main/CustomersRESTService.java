@@ -75,6 +75,32 @@ public class CustomersRESTService {
 
 	}
 	
+	
+//	@GET
+//	@Path("/getcustomer/{ userName }")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public String getCustomer(@PathParam("userName") String userName)
+//	{
+//		//	http://localhost:8080/Team4API/rest/agents/getagent/5
+//		EntityManager em =
+////				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
+//				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
+//
+//		//Customer customer = em.find(Customer.class, customerId);
+//		
+//		Query query = em.createQuery("select c from Customer c where c.username=" + userName);
+//		Customer customer = (Customer) query.getSingleResult();
+//
+//		Gson gson = new Gson();
+//		Type type = new TypeToken<Customer>() {}.getType();
+//		String jsonString = gson.toJson(customer, type);
+//		em.close();
+//		return jsonString;
+//
+//	}
+	
+	
+	
 	@POST
 	@Path("/postcustomer")
 	@Consumes({MediaType.APPLICATION_JSON})

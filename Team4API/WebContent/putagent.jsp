@@ -79,7 +79,7 @@
 		<button onclick="saveagent()">Save</button>
 	</form>
 	
-		<h1>Agent Details 9</h1>
+		<h1>Agent Details</h1>
 	<select id="agentid" onchange="showagent(this.value)">
 		<option value="">Select an agent to display</option>
 	</select>
