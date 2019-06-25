@@ -8,6 +8,7 @@ import javax.persistence.*;
  * The persistent class for the customers database table.
  * 
  */
+//
 @Entity
 @Table(name="customers")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
