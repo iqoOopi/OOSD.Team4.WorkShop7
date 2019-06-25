@@ -11,10 +11,17 @@
 	 */
 package main;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.Consumes;
@@ -26,11 +33,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import model.Agent;
+import model.Booking;
+import model.BookingForPackage;
 import model.Customer;
+import model.Package;
+import sun.misc.BASE64Decoder;
+
+
+//import org.apache.commons.codec.binary.Base64;//
 
 @Path("/customers")
 public class CustomersRESTService {
@@ -197,20 +214,41 @@ public class CustomersRESTService {
 			///
 			// Request comes in as Base64 encoded
 			///
-			request=new String(Base64.decodeBase64(request));
+			System.out.println(request);
+			System.out.println("*************************************************************");
+			String test = request.toString();
+			System.out.println(test);
+			
+			BASE64Decoder decoder = new BASE64Decoder();
+			
+			
+//			request=new String(Base64.getDecoder().decode(request.toString()));
+			try {
+				request = new String(decoder.decodeBuffer(request));
+				System.out.println("*************************************************************");
+				System.out.println(request);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Gson gson = new Gson();
 			LoginCredentials jsonIN = gson.fromJson(request,LoginCredentials.class);
 		
 			String query = "SELECT c FROM Customer c WHERE c.custEmail=:requestEMAIL";
 			Query q = em.createQuery(query);
+			
 			q.setParameter("requestEMAIL", jsonIN.getCustEmail());
+			
+			System.out.println("*************************************************************");
+			System.out.println(q.toString());
 			
 			String jsonOUT = gson.toJson(q.getSingleResult());
 			Customer customer = gson.fromJson(jsonOUT, Customer.class);
 			
 			String passwordIN = jsonIN.getCustPassword();
 			
-			if(passwordIN.equals(customer.getCustPassword())){
+			if(passwordIN.equals(customer.getPassword())){
 				///
 				// SUCCESSFUL LOGIN
 				// TOKEN GENERATION
@@ -222,18 +260,19 @@ public class CustomersRESTService {
 				sb.append(customer.getCustEmail());
 				sb.append(RANDOMTIME);
 				String strTOKEN = sb.toString();
-				byte[] byteTOKEN = Base64.encodeBase64(strTOKEN.getBytes());
+				byte[] byteTOKEN = Base64.getEncoder().encode(strTOKEN.getBytes());
 				String TOKEN = new String(byteTOKEN);
 				
 				///
 				// IF TOKEN EXISTS, UPDATE IT
 				///
 				String selectQuery = "SELECT c FROM Customerstoken c WHERE c.customerId=:CUSTOMERID";
+				
 				Query q1 = em.createQuery(selectQuery);
 				q1.setParameter("CUSTOMERID", customer.getCustomerId());
 				if(q1.getResultList().size()>0){
 					em.getTransaction().begin();
-					String deleteQuery = "DELETE FROM customerstokens WHERE customerId = ?";
+					String deleteQuery = "DELETE FROM customerstokens WHERE CustomerId = ?";
 					Query q2 = em.createNativeQuery(deleteQuery);
 					q2.setParameter(1, customer.getCustomerId());
 					q2.executeUpdate();
@@ -278,7 +317,7 @@ public class CustomersRESTService {
 		Customer c = new Gson().fromJson(custJSON, type);
 		
 		em.getTransaction().begin();
-		Query q = em.createNativeQuery("UPDATE customers SET AgentId = ? WHERE CustomerId = ?");
+		Query q = em.createNativeQuery("UPDATE customer SET AgentId = ? WHERE CustomerId = ?");
 		int agentid = GenerateRandomAgent();
 		q.setParameter(1, agentid);
 		q.setParameter(2, c.getCustomerId());
@@ -324,17 +363,20 @@ public class CustomersRESTService {
 		
 		Query qBookings = em.createQuery("SELECT b FROM Booking b WHERE b.customerId=:CUSTID");
 		qBookings.setParameter("CUSTID", custid);
+		System.out.println(custid);
+		System.out.println("*******************8");
 		List<Booking> bookings = qBookings.getResultList();
 		
 		Query qPackage;
 		List<Package> packages__bookings = new ArrayList<Package>();
 		for(int i=0;i<bookings.size();i++){
 			qPackage = em.createQuery("SELECT p FROM Package p WHERE p.packageId=:PACKAGEID");
+			System.out.println(bookings.get(i).getPackageId());
 			qPackage.setParameter("PACKAGEID", bookings.get(i).getPackageId());
 			packages__bookings.add((Package)qPackage.getSingleResult());
 		}
 		
-		ArrayList<BookingForPackage> bookingForPackagesList = new ArrayList<BookingForPackage>();
+		List<BookingForPackage> bookingForPackagesList = new ArrayList<BookingForPackage>();
 		BookingForPackage bookingforpackage;
 		for(int i=0;i<bookings.size();i++){
 			bookingforpackage = new BookingForPackage();
@@ -352,10 +394,10 @@ public class CustomersRESTService {
 			bookingforpackage.setPkgBasePrice(packages__bookings.get(i).getPkgBasePrice());
 			bookingforpackage.setPkgAgencyCommission(packages__bookings.get(i).getPkgAgencyCommission());			
 			
-			bookingForPackageList.add(bookingforpackage);
+			bookingForPackagesList.add(bookingforpackage);
 		}
 		
-		String json = new Gson().toJson(bookingForPackageList);
+		String json = new Gson().toJson(bookingForPackagesList);
 		
 		em.close();
 		emfactory.close();			
@@ -437,7 +479,7 @@ public class CustomersRESTService {
 		Customer c = new Gson().fromJson(custJSON, type);
 		
 		em.getTransaction().begin();
-		Query q = em.createNativeQuery("UPDATE customers SET "+
+		Query q = em.createNativeQuery("UPDATE Customer SET "+
 		"CustFirstName = ?,CustLastName = ?,CustAddress = ?,CustCity = ?,CustProv = ?,CustPostal = ?,CustCountry = ?,CustHomePhone = ?,CustBusPhone = ?,CustEmail = ? "+
 				"WHERE CustomerId = ?");
 		q.setParameter(1, c.getCustFirstName());

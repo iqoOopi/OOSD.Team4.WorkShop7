@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="bookingdetails")
-@NamedQuery(name="Bookingdetail.findAll", query="SELECT b FROM Bookingdetail b")
+@NamedQuery(name="Bookingdetail.findAll", query="SELECT b FROM BookingDetail b")
 public class BookingDetail implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class BookingDetail implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tripStart;
 
-	public Bookingdetail() {
+	public BookingDetail() {
 	}
 
 	public int getBookingDetailId() {
