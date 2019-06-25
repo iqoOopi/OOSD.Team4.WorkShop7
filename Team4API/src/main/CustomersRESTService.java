@@ -479,7 +479,7 @@ public class CustomersRESTService {
 		Customer c = new Gson().fromJson(custJSON, type);
 		
 		em.getTransaction().begin();
-		Query q = em.createNativeQuery("UPDATE Customer SET "+
+		Query q = em.createNativeQuery("UPDATE customers SET "+
 		"CustFirstName = ?,CustLastName = ?,CustAddress = ?,CustCity = ?,CustProv = ?,CustPostal = ?,CustCountry = ?,CustHomePhone = ?,CustBusPhone = ?,CustEmail = ? "+
 				"WHERE CustomerId = ?");
 		q.setParameter(1, c.getCustFirstName());
