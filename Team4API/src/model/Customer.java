@@ -2,25 +2,23 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  * The persistent class for the customers database table.
  * 
  */
-//
 @Entity
 @Table(name="customers")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
-@XmlRootElement
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int customerId;
 
-	private int agentId;
+	// change to Integer as a test
+	private Integer agentId;
 
 	private String custAddress;
 
@@ -57,11 +55,11 @@ public class Customer implements Serializable {
 		this.customerId = customerId;
 	}
 
-	public int getAgentId() {
+	public Integer getAgentId() {
 		return this.agentId;
 	}
 
-	public void setAgentId(int agentId) {
+	public void setAgentId(Integer agentId) {
 		this.agentId = agentId;
 	}
 

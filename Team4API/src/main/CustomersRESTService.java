@@ -126,12 +126,19 @@ public class CustomersRESTService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAgent(String jsonString)
 	{
+		System.out.println(jsonString);
 		Gson gson = new Gson();
 		Type type = new TypeToken<Customer>() {}.getType();
-		String temp = jsonString;
+
 		Customer customer = gson.fromJson(jsonString, type);
+		
+		// could possibly manage null customer properties here
+		//if (customer.getAgentId() == -1) {
+		//	System.out.println(customer.getAgentId());
+		//	customer.setAgentId(null);
+		//}
+		
 		EntityManager em =
-//				Persistence.createEntityManagerFactory("OOSD.Team4.Workshop7.Team4API").createEntityManager();
 				Persistence.createEntityManagerFactory("Team4API").createEntityManager();
 		
 		em.getTransaction().begin();

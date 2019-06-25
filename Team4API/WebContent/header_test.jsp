@@ -22,7 +22,7 @@ function loadagents()
 	// AJAX call to get agent information from REST service
 	req.open("get", url);
 	req.setRequestHeader("Content-type", "application/json");
-//	req.setRequestHeader("Content-type", "application/json");
+//	req.setRequestHeader("Content-type", "application/xml");
 //	req.setRequestHeader("Accept", "application/xml");
 	req.setRequestHeader("Accept", "application/json");
 
