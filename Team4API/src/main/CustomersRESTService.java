@@ -317,7 +317,7 @@ public class CustomersRESTService {
 	@GET
 	@Path("/get_my_bookings/{custid}")
     @Produces(MediaType.APPLICATION_JSON)
-	public String getMyBookingWPackage(@PathParam("custid") int custid) {
+	public String getMyBookingForPackage(@PathParam("custid") int custid) {
 		
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Team4API");
 		EntityManager em = emfactory.createEntityManager();
@@ -334,28 +334,28 @@ public class CustomersRESTService {
 			packages__bookings.add((Package)qPackage.getSingleResult());
 		}
 		
-		List<BookingWPackage> bookingsWpackage = new ArrayList<BookingWPackage>();
-		BookingWPackage bookingWpackage;
+		ArrayList<BookingForPackage> bookingForPackagesList = new ArrayList<BookingForPackage>();
+		BookingForPackage bookingforpackage;
 		for(int i=0;i<bookings.size();i++){
-			bookingWpackage = new BookingWPackage();
-			bookingWpackage.setBookingId(bookings.get(i).getBookingId());
-			bookingWpackage.setBookingDate(bookings.get(i).getBookingDate());
-			bookingWpackage.setBookingNo(bookings.get(i).getBookingNo());
-			bookingWpackage.setCustomerId(bookings.get(i).getCustomerId());
-			bookingWpackage.setTravelerCount(bookings.get(i).getTravelerCount());
-			bookingWpackage.setTripTypeId(bookings.get(i).getTripTypeId());
-			bookingWpackage.setPackageId(bookings.get(i).getPackageId());
-			bookingWpackage.setPkgName(packages__bookings.get(i).getPkgName());
-			bookingWpackage.setPkgStartDate(packages__bookings.get(i).getPkgStartDate());
-			bookingWpackage.setPkgEndDate(packages__bookings.get(i).getPkgEndDate());
-			bookingWpackage.setPkgDesc(packages__bookings.get(i).getPkgDesc());
-			bookingWpackage.setPkgBasePrice(packages__bookings.get(i).getPkgBasePrice());
-			bookingWpackage.setPkgAgencyCommission(packages__bookings.get(i).getPkgAgencyCommission());
+			bookingforpackage = new BookingForPackage();
+			bookingforpackage.setBookingId(bookings.get(i).getBookingId());
+			bookingforpackage.setBookingDate(bookings.get(i).getBookingDate());
+			bookingforpackage.setBookingNo(bookings.get(i).getBookingNo());
+			bookingforpackage.setCustomerId(bookings.get(i).getCustomerId());
+			bookingforpackage.setTravelerCount(bookings.get(i).getTravelerCount());
+			bookingforpackage.setTripTypeId(bookings.get(i).getTripTypeId());
+			bookingforpackage.setPackageId(bookings.get(i).getPackageId());
+			bookingforpackage.setPkgName(packages__bookings.get(i).getPkgName());
+			bookingforpackage.setPkgStartDate(packages__bookings.get(i).getPkgStartDate());
+			bookingforpackage.setPkgEndDate(packages__bookings.get(i).getPkgEndDate());
+			bookingforpackage.setPkgDesc(packages__bookings.get(i).getPkgDesc());
+			bookingforpackage.setPkgBasePrice(packages__bookings.get(i).getPkgBasePrice());
+			bookingforpackage.setPkgAgencyCommission(packages__bookings.get(i).getPkgAgencyCommission());			
 			
-			bookingsWpackage.add(bookingWpackage);
+			bookingForPackageList.add(bookingforpackage);
 		}
 		
-		String json = new Gson().toJson(bookingsWpackage);
+		String json = new Gson().toJson(bookingForPackageList);
 		
 		em.close();
 		emfactory.close();			

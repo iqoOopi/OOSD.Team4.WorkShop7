@@ -37,7 +37,7 @@ public class BookingForPackage implements Serializable {
 	private BigDecimal pkgBasePrice;
 	private BigDecimal pkgAgencyCommission;
 	
-	public BookingWPackage(){
+	public BookingForPackage(){
 		
 	}
 	
