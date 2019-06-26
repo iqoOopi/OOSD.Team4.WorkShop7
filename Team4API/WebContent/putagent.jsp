@@ -90,7 +90,8 @@
 		<select id="agentid" onchange="showagent(this.value)">
 			<option value="">Select an agent to display</option>
 		</select>
-		<div id="agentdetail"></div>
+		<div id="agentdetail">
+		</div>
 	</div>
 	
 	<script>

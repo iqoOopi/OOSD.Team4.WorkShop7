@@ -1,74 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<jsp:include page = "bookings_fn.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<script>
-function loadBookings()
-{
-	console.log("in bookings");
-	var agentselect = $("#bookingid")[0];
-	var req = new XMLHttpRequest();
-	var tempAgent;
+<link rel="stylesheet" href="./bootstrap/css/grayscale.css" type= "text/css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.7.0/css/all.css"  >
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	
-	// AJAX call to get province/state information from REST service
-	req.open("get", url);
-	req.onreadystatechange = function()
-	{
-		var txt;
-		if (req.readyState == 4)
-		{
-			// parse returned province/state information into JSON array
-		    json = JSON.parse(this.responseText);
-			
-			console.log(json.length);
-			console.log(Object.keys(json[0]).length);
-			console.log(Object.keys(json[0]));			
-			
-		    txt += "<table class='table table-striped table-dark' id='tblbookings' border='1'>"
-		    var keys = Object.keys(json[0]);
-		    console.log(keys);
-		    console.log("json: ", json);
-		    
-		    for (i = 0; i < json.length; i++)
-		    {
-		      txt += "<tr>";
-		      for (j = 0; j < keys.length; j++)
-		      {
-		    	  console.log(json[j]);		    	  
-		          txt += "<td>" + (json[i])[keys[j]] + "</td>";
-		      }
-		      txt += "</tr>";		      
-		    }
-		    txt += "</table>" 
-		    document.getElementById("demo").innerHTML = txt;
-		}
-	};
-	req.send();
-	 
-}
-
-function showbookings(bookingid))
-{
-	var url = "http://localhost:8080/Team4API/rest/bookings/getbooking/" + agentid;
-	$.get(url, function(json){
-		var mystring = json.agentId + "|"
-		+ json.agtFirstName + "|"
-		+ json.agtLastName + "|"
-		+ json.agtBusPhone + "|"
-		+ json.agtEmail;
-		$("#agentdetail").text(mystring);
-		}, "json");
-}</script>
 </head>
-<body>
-	<h1>Bookings</h1>
-	<div>		
-		<div class="container">
-			///bookings tables go in here
-		</div>
+<body onload="loadSbookings()" style="background-image:url('./img/demo-image-01.jpg')">
+	<div class="mx-auto">
+		<h1 class= "mx-auto text-uppercase">Bookings</h1>
 	</div>
+	<div >
+		<button id = "btnLoadAgts" class="btn btn-primary btn-centered" onclick="loadBookings(); ">Load Booking History</button>
+	</div>
+	<div class="small" id="demo" style="display: block;height: 300px;overflow: auto;"></div>
+	
+	<div class="container" id = "fields">
+		
+		<button class="btn btn-primary" onclick="updatebookings();">Update</button>
+	
+	</div>
+	
+	<div class="mx-auto" id="selected">
+		<a>Booking Date:</a><input type ="text" id="bkDate"></br>
+		<a>Booking Id:</a><input type = "text" id="bkID"></br>
+		<a>Booking No:</a><input type = "text" id="bkNo"></br>
+		<a>Package Id:</a><input type = "text" id="pkgId"></br>
+		<a>Traveler Count:</a><input type = "text" id= "travelerCount"></br>
+		<a>Customer Id:</a><input type = "text" id= "customerId"></br>
+		<a>Trip Type:</a><input type = "text" id = "tripType"></br>
+	</div>
+	<footer>
+	</footer>
+	
+	<script>
+	
+	setTimeout(function(){
+		var btnContainer = document.getElementById("fields");
+		var tbl = document.getElementById("tblbookings"), rIndex;
+		var selected = document.getElementById("selected");
+		for (var i = 0;i<tbl.rows.length;i++)
+			{
+				
+				tbl.rows[i].onclick = function()
+				{
+					if (selected.style.display=="none")
+						{
+							selected.style.display="block";
+							btnContainer.style.display = "block";
+							console.log("should display");
+						}
+					
+					rIndex = this.rowIndex;
+					document.getElementById("bkID").value = this.cells[1].innerHTML;
+					document.getElementById("pkgId").value = this.cells[4].innerHTML;
+					//document.getElementById("agtmiddleInitial").value = this.cells[6].innerHTML;
+					document.getElementById("travelerCount").value = this.cells[5].innerHTML;
+					document.getElementById("bkNo").value = this.cells[2].innerHTML;
+					document.getElementById("customerId").value = this.cells[3].innerHTML;
+					document.getElementById("tripType").value = this.cells[6].innerHTML;
+					document.getElementById("bkDate").value = this.cells[0].innerHTML;
+					
+				}
+				
+			}
+		 
+		}, 2000);
+	</script>
+	
 </body>
 </html>
