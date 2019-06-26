@@ -7,6 +7,9 @@
 		<class>model.Booking</class>
 		<class>model.Product</class>
 		<class>model.Supplier</class>
+		<class>model.BookingDetail</class>
+		<class>model.Customerstoken</class>
+		<class>model.BookingForPackage</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/travelexperts"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
