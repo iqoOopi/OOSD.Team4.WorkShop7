@@ -72,10 +72,11 @@ function loadSbookings()
 		
 		// obtain references to the html selection elements CustProv and CustCountry
 		
-		var bookingselect = document.getElementById("bookingstable");
+		var bookingselect = document.getElementById("tblbookings");
 		if (bookingselect == null)
 			{
-			var url = "http://localhost:8080/Team4API/rest/bookings/getallbookingss";
+			//var url = "http://192.168.0.16:8080/Team4API/rest/bookings/getallbookings";
+			var url = "http://localhost:8080/Team4API/rest/bookings/getallbookings";
 			var req = new XMLHttpRequest();
 			var tempAgent;
 			
@@ -115,7 +116,7 @@ function loadSbookings()
 				}
 			};
 			req.send();
-			}else ///in order to refresh table
+			}else ///
 				{
 				var url = "http://localhost:8080/Team4API/rest/bookings/getallbookings";
 				var req = new XMLHttpRequest();
@@ -197,6 +198,15 @@ function updatebookings()
     
     
 }
+
+function loadBookingsk()
+{
+	var tbl = document.getElementById("demo");
+	tbl.style.display="block";
+	
+
+}
+
 	
 
 </script>

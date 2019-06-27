@@ -16,7 +16,7 @@
 		<h1 class= "mx-auto text-uppercase">Bookings</h1>
 	</div>
 	<div >
-		<button id = "btnLoadAgts" class="btn btn-primary btn-centered" onclick="loadBookings(); ">Load Booking History</button>
+		<button id = "btnLoadAgts" class="btn btn-primary btn-centered" onclick="loadBookingsk(); ">Load Booking History</button>
 	</div>
 	<div class="small" id="demo" style="display: block;height: 300px;overflow: auto;"></div>
 	
@@ -53,9 +53,9 @@
 						{
 							selected.style.display="block";
 							btnContainer.style.display = "block";
-							console.log("should display");
+							
 						}
-					
+					console.log("should display");	
 					rIndex = this.rowIndex;
 					document.getElementById("bkID").value = this.cells[1].innerHTML;
 					document.getElementById("pkgId").value = this.cells[4].innerHTML;
@@ -70,7 +70,7 @@
 				
 			}
 		 
-		}, 2000);
+		}, 3000);
 	</script>
 	
 </body>

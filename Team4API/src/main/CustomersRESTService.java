@@ -317,7 +317,7 @@ public class CustomersRESTService {
 		Customer c = new Gson().fromJson(custJSON, type);
 		
 		em.getTransaction().begin();
-		Query q = em.createNativeQuery("UPDATE customer SET AgentId = ? WHERE CustomerId = ?");
+		Query q = em.createNativeQuery("UPDATE customers SET AgentId = ? WHERE CustomerId = ?");
 		int agentid = GenerateRandomAgent();
 		q.setParameter(1, agentid);
 		q.setParameter(2, c.getCustomerId());
